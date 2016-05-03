@@ -8,21 +8,27 @@ class GildedRose
     @items.each do |item|
       case item.name.downcase
       when /aged brie/
-        item.quality = item.quality + 1 if item.quality < 50
+        item.quality += 1 if item.quality < 50
       when /backstage passes/
-        item.quality = item.quality + 1 if item.quality < 50 && item.sell_in < 11
-        item.quality = item.quality + 1 if item.quality < 50 && item.sell_in < 6
-        item.quality = item.quality + 1 if item.quality < 50
-        item.quality = 0 if item.sell_in < 0
+        item.quality += 1 if item.quality < 50 && item.sell_in < 11
+        item.quality += 1 if item.quality < 50 && item.sell_in < 6
+        item.quality += 1 if item.quality < 50
+        item.quality = 0 if item.sell_in <= 0
       when /sulfuras/
-        item.quality = 80
       when /conjured/
-        2.times { item.quality = item.quality - 1 if item.quality > 0 }
+        if item.sell_in <= 0
+          4.times { item.quality -= 1 if item.quality > 0 }
+        else
+          2.times { item.quality -= 1 if item.quality > 0 }
+        end
       else
-        item.quality = item.quality - 1 if item.quality > 0
+        if item.sell_in <= 0
+          2.times { item.quality -= 1 if item.quality > 0 }
+        else
+          item.quality -= 1 if item.quality > 0
+        end
       end
-
-      item.sell_in = item.sell_in - 1 unless item.name.downcase.include?("sulfuras")
+      item.sell_in -= 1 unless item.name.downcase.include?("sulfuras")
     end
   end
 end
