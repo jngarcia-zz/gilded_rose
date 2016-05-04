@@ -6,13 +6,7 @@ class GildedRose
 
   def update_quality()
     @items.each do |item|
-      if item.quality < 0
-        item.quality = 0
-        next
-      elsif item.quality > 50
-        item.quality = 50
-      end
-
+      validate(item)
       case item.name.downcase
       when /aged brie/
         item.quality += 1 if item.quality < 50
@@ -39,6 +33,17 @@ class GildedRose
       item.sell_in -= 1 unless item.name.downcase.include?("sulfuras")
     end
   end
+
+  private
+
+  def validate(item)
+    if item.quality < 0
+      item.quality = 0
+    elsif item.quality > 50
+      item.quality = 50
+    end
+  end
+
 end
 
 class Item

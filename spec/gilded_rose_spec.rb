@@ -78,14 +78,14 @@ describe GildedRose do
         item = aged_brie
         item.quality = -2
         GildedRose.new([item]).update_quality
-        expect(item.quality).to eq(0)
+        expect(item.quality).to eq(1)
       end
 
       it "Quality should not contain a negative value[=]" do
         item = aged_brie
         item.quality = -1
         GildedRose.new([item]).update_quality
-        expect(item.quality).to eq(0)
+        expect(item.quality).to eq(1)
       end
 
       it "Quality should not contain a negative value[>]" do
@@ -185,14 +185,14 @@ describe GildedRose do
         item = backstage_passes
         item.quality = -2
         GildedRose.new([item]).update_quality
-        expect(item.quality).to eq(0)
+        expect(item.quality).to eq(2)
       end
 
       it "Quality should not contain a negative value[=]" do
         item = backstage_passes
         item.quality = -1
         GildedRose.new([item]).update_quality
-        expect(item.quality).to eq(0)
+        expect(item.quality).to eq(2)
       end
 
       it "Quality should not contain a negative value[>]" do
