@@ -6,6 +6,13 @@ class GildedRose
 
   def update_quality()
     @items.each do |item|
+      if item.quality < 0
+        item.quality = 0
+        next
+      elsif item.quality > 50
+        item.quality = 50
+      end
+
       case item.name.downcase
       when /aged brie/
         item.quality += 1 if item.quality < 50
@@ -15,6 +22,7 @@ class GildedRose
         item.quality += 1 if item.quality < 50
         item.quality = 0 if item.sell_in <= 0
       when /sulfuras/
+        item.quality = 80
       when /conjured/
         if item.sell_in <= 0
           4.times { item.quality -= 1 if item.quality > 0 }

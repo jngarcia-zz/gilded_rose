@@ -1,11 +1,11 @@
 require 'spec_helper'
- 
+
 describe GildedRose do
-  let(:backstage_passes) { Item.new("backstage passes for wat", 10, 20) }
-  let(:aged_brie) { Item.new("aged brie of wat", 20, 20) }
-  let(:sulfuras) { Item.new("sulfuras, Hand of wat", 20, 20) }
-  let(:conjured) { Item.new("conjured of wat", 20, 20) }
-  let(:normal_item) { Item.new("book", 20, 20) }
+  let(:backstage_passes) { Item.new("Backstage passes for wat", 10, 20) }
+  let(:aged_brie) { Item.new("Aged Brie", 20, 20) }
+  let(:sulfuras) { Item.new("Sulfuras, Hand of wat", 20, 20) }
+  let(:conjured) { Item.new("Conjured of wat", 20, 20) }
+  let(:normal_item) { Item.new("Book", 20, 20) }
 
   describe "#update_quality" do
     context "Sulfuras" do
@@ -78,14 +78,14 @@ describe GildedRose do
         item = aged_brie
         item.quality = -2
         GildedRose.new([item]).update_quality
-        expect(item.quality).to eq(1)
+        expect(item.quality).to eq(0)
       end
 
       it "Quality should not contain a negative value[=]" do
         item = aged_brie
         item.quality = -1
         GildedRose.new([item]).update_quality
-        expect(item.quality).to eq(1)
+        expect(item.quality).to eq(0)
       end
 
       it "Quality should not contain a negative value[>]" do
@@ -171,7 +171,7 @@ describe GildedRose do
         item = backstage_passes
         item.sell_in = 0
         GildedRose.new([item]).update_quality
-        expect(item.quality).to eq(23)
+        expect(item.quality).to eq(0)
       end
 
       it "Quality must be equal to 0 after the concert[>]" do
@@ -185,14 +185,14 @@ describe GildedRose do
         item = backstage_passes
         item.quality = -2
         GildedRose.new([item]).update_quality
-        expect(item.quality).to eq(2)
+        expect(item.quality).to eq(0)
       end
 
       it "Quality should not contain a negative value[=]" do
         item = backstage_passes
         item.quality = -1
         GildedRose.new([item]).update_quality
-        expect(item.quality).to eq(2)
+        expect(item.quality).to eq(0)
       end
 
       it "Quality should not contain a negative value[>]" do
@@ -301,7 +301,7 @@ describe GildedRose do
         item = normal_item
         item.sell_in = 0
         GildedRose.new([item]).update_quality
-        expect(item.quality).to eq(19)
+        expect(item.quality).to eq(18)
       end
 
       it "Quality degrades twice after sellin[>]" do
