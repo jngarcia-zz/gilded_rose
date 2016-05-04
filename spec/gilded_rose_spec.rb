@@ -236,7 +236,7 @@ describe GildedRose do
         item = conjured
         item.sell_in = 0
         GildedRose.new([item]).update_quality
-        expect(item.quality).to eq(18)
+        expect(item.quality).to eq(16)
       end
 
       it "Quality degrades twice after sellin[>]" do
