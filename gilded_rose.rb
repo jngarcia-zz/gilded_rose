@@ -9,7 +9,7 @@ class GildedRose
       validate(item)
       case item.name.downcase
       when /aged brie/
-        item.quality += 1 if item.quality < 50
+        upgrade(item, 1)
       when /backstage passes/
         item.quality += 1 if item.quality < 50 && item.sell_in < 11
         item.quality += 1 if item.quality < 50 && item.sell_in < 6
@@ -18,17 +18,9 @@ class GildedRose
       when /sulfuras/
         item.quality = 80
       when /conjured/
-        if item.sell_in <= 0
-          4.times { item.quality -= 1 if item.quality > 0 }
-        else
-          2.times { item.quality -= 1 if item.quality > 0 }
-        end
+        degrade(item, 2)
       else
-        if item.sell_in <= 0
-          2.times { item.quality -= 1 if item.quality > 0 }
-        else
-          item.quality -= 1 if item.quality > 0
-        end
+        degrade(item, 1)
       end
       item.sell_in -= 1 unless item.name.downcase.include?("sulfuras")
     end
@@ -41,6 +33,22 @@ class GildedRose
       item.quality = 0
     elsif item.quality > 50
       item.quality = 50
+    end
+  end
+
+  def upgrade(item, rate)
+    if item.sell_in < 0
+      (rate*2).times { item.quality += 1 if item.quality < 50 }
+    else
+      rate.times { item.quality += 1 if item.quality < 50 }
+    end
+  end
+
+  def degrade(item, rate)
+    if item.sell_in <= 0
+      (rate*2).times { item.quality -= 1 if item.quality > 0 }
+    else
+      rate.times { item.quality -= 1 if item.quality > 0 }
     end
   end
 

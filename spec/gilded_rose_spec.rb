@@ -36,7 +36,7 @@ describe GildedRose do
         item = aged_brie
         item.sell_in = -1
         GildedRose.new([item]).update_quality
-        expect(item.quality).to eq(21)
+        expect(item.quality).to eq(22)
       end
 
       it "Quality increses as it gets older[=]" do
